@@ -52,7 +52,8 @@ h1 {
 .btn-submit:hover{
     opacity: .75;
 }
-.hide-div{
+.hide-div,
+.hide-alert{
     display: none;
 }
 button + button {
