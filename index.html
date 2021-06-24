@@ -42,32 +42,41 @@
       </div>
     </section>
     <section class="main-content">
-      <div class="row order-details">
+      <div class="row">
         <div class="col-md-6 order-choices">
           <form action="" id="pizza-order">
             <h2 class="header-stub">Palce Order</h2>
             <div class="alert hide-alert form-alerts" role="alert"></div>
             <div class="order-details">
               <div class="form-group">
-                <select name="" class="form-control" id="pizza-size">
+                <select name="" class="form-control pizza-size">
                   <option value="">Select pizza size</option>
+                  <option value="mega">Mega</option>
+                  <option value="large">Large</option>
+                  <option value="medium">Medium</option>
+                  <option value="small">Small</option>
                 </select>
               </div>
               <div class="form-group">
-                <select name="" class="form-control" id="crust-type">
+                <select name="" class="form-control crust-type">
                   <option value="">Select crust</option>
+                  <option value="crispy">Crispy</option>
+                  <option value="stuffed">Stuffed</option>
+                  <option value="gluten-free">Gluten-free</option>
                 </select>
               </div>
               <div class="form-group">
-                <select name="" class="form-control" id="toppings">
+                <select name="" class="form-control toppings">
                   <option value="">Select toppings</option>
+                  <option value="hawaiian">Hawaiian</option>
+                  <option value="chicken-bqq">Chicked BQQ</option>
                 </select>
               </div>
             </div>
             <div class="delivery-details hide-div">
               <div class="form-check">
                 <input
-                  class="form-check-input"
+                  class="form-check-input delivery-mode"
                   type="radio"
                   name="exampleRadios"
                   id="exampleRadios1"
@@ -80,7 +89,7 @@
               </div>
               <div class="form-check">
                 <input
-                  class="form-check-input"
+                  class="form-check-input delivery-mode"
                   type="radio"
                   name="exampleRadios"
                   id="exampleRadios2"
@@ -98,24 +107,27 @@
                 />
               </div>
               <div class="form-group">
-                <select class="form-control" name="" id="">
+                <select class="form-control region" name="" id="">
                   <option value="">Region</option>
                 </select>
               </div>
               <div class="form-group">
                 <input
-                  class="form-control"
+                  class="form-control address"
                   type="text"
                   placeholder="Delivery address"
                 />
               </div>
             </div>
             <input type="hidden" value="place-new-order" id="form-action"/>
-            <div class="button-group">
-              <button class="btn-submit">Place order</button>
-              <button type="button" class="btn-submit" disabled>
-                Check out
-              </button>
+            <div class="check-out-option hide-div">
+                <ul>
+                    <li data-action="addorder"><span>Add order</span></li>
+                    <li data-action="checkout"><span>Check Out</span></li>
+                </ul>
+            </div>
+            <div class="form-group button-group">
+              <button data-action="addorder" type="submit" class="btn-submit">Place order</button>
             </div>
           </form>
         </div>

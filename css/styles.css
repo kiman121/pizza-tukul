@@ -44,7 +44,7 @@ h1 {
 .btn-submit {
     background-color: #23424a;
     color: #fff;
-    width: 30%;
+    width: 40%;
     border: 1px solid #23424a;
     padding: .25em 0;
     border-radius: 4px;
@@ -53,12 +53,13 @@ h1 {
     opacity: .75;
 }
 .hide-div,
-.hide-alert{
+.hide-alert,
+.hide-btn{
     display: none;
 }
 .validate{
     border-color: red !important;
 }
 button + button {
-  margin-left: 2em;
+  margin-left: 0.5em;
 }
