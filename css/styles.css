@@ -1,31 +1,60 @@
 *,
 *::before,
-*::after{
-    box-sizing: border-box;
+*::after {
+  box-sizing: border-box;
 }
 
-body{
-    margin: 0;
-    font-family: "Roboto", sans-serif;
-    font-size: 1rem;
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
 }
 h1 {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
-.header p{
-    font-size: 0.75em;
-    font-style: italic;
-    font-weight: 100;
+.header p {
+  font-size: 0.75em;
+  font-style: italic;
+  font-weight: 100;
 }
-.header{
-    padding: 1em 0;
+.header {
+  padding: 1em 0;
+  background-color: #23424a;
+  color: #fff;
+}
+.container,
+.main-content {
+  width: 100%;
+  margin: 0;
+  padding: 0 1em;
+  /* border: 1px solid yellow; */
+}
+.main-content {
+  padding: 1em;
+  border: 1px solid red;
+}
+.order-choices{
+    border-right: 2px solid #23424a;
+}
+.button-group {
+  display: block;
+  text-align: center;
+}
+.btn-submit {
     background-color: #23424a;
     color: #fff;
+    width: 30%;
+    border: 1px solid #23424a;
+    padding: .25em 0;
+    border-radius: 4px;
 }
-.container{
-    width: 100%;
-    margin: 0;
-    padding: 0 1em;
-    border: 1px solid yellow;
+.btn-submit:hover{
+    opacity: .75;
+}
+.hide-div{
+    display: none;
+}
+button + button {
+  margin-left: 2em;
 }

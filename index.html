@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pizza Tukul</title>
     <link
       rel="stylesheet"
@@ -33,43 +33,93 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/scripts.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <section class="header">
-        <div class="container">
-            <h1>Pizza Tukul</h1>
-            <p>Welcome to a of mouth watering pizza...</p>
-        </div>
+      <div class="container">
+        <h1>Pizza Tukul</h1>
+        <p>Welcome to a home of mouth watering pizza...</p>
+      </div>
     </section>
     <section class="main-content">
-        <div class="row">
-            <div class="col-md-6">
-                <form action="" id="pizza-order">
-                    <h2 class="header-stub">Palce Order</h2>
-                    <div class="order-details">
-                        <div class="form-group">
-                            <select name="" id="" class="form-control pizza-size">
-                                <option value="">Select pizza size</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="" id="" class="form-control crust-type">
-                                <option value="">Select crust</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="" id="" class="form-control toppings">
-                                <option value="">Select toppings</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn-submit">Place order</button>
-                    </div>
-                </form>
+      <div class="row order-details">
+        <div class="col-md-6 order-choices">
+          <form action="" id="pizza-order">
+            <h2 class="header-stub">Palce Order</h2>
+            <div class="order-details hide-div">
+              <div class="form-group">
+                <select name="" id="" class="form-control pizza-size">
+                  <option value="">Select pizza size</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select name="" id="" class="form-control crust-type">
+                  <option value="">Select crust</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select name="" id="" class="form-control toppings">
+                  <option value="">Select toppings</option>
+                </select>
+              </div>
             </div>
-            <div class="col-md-6"></div>
+            <div class="delivery-details">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="exampleRadios"
+                  id="exampleRadios1"
+                  value="option1"
+                  checked
+                />
+                <label class="form-check-label" for="exampleRadios1">
+                  Default radio
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="exampleRadios"
+                  id="exampleRadios2"
+                  value="option2"
+                />
+                <label class="form-check-label" for="exampleRadios2">
+                  Second default radio
+                </label>
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Phone number"
+                />
+              </div>
+              <div class="form-group">
+                <select class="form-control" name="" id="">
+                  <option value="">Region</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Delivery address"
+                />
+              </div>
+            </div>
+            <input type="hidden" value="place-new-order" />
+            <div class="button-group">
+              <button class="btn-submit">Place order</button>
+              <button type="button" class="btn-submit" disabled>
+                Check out
+              </button>
+            </div>
+          </form>
         </div>
+        <div class="col-md-6 oder-summary"></div>
+      </div>
     </section>
-</body>
+  </body>
 </html>
