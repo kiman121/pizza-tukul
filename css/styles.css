@@ -1,0 +1,31 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+}
+h1 {
+    font-size: 3rem;
+}
+
+.header p{
+    font-size: 0.75em;
+    font-style: italic;
+    font-weight: 100;
+}
+.header{
+    padding: 1em 0;
+    background-color: #23424a;
+    color: #fff;
+}
+.container{
+    width: 100%;
+    margin: 0;
+    padding: 0 1em;
+    border: 1px solid yellow;
+}
