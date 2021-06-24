@@ -47,24 +47,24 @@
           <form action="" id="pizza-order">
             <h2 class="header-stub">Palce Order</h2>
             <div class="alert hide-alert form-alerts" role="alert"></div>
-            <div class="order-details hide-div">
+            <div class="order-details">
               <div class="form-group">
-                <select name="" id="" class="form-control pizza-size">
+                <select name="" class="form-control" id="pizza-size">
                   <option value="">Select pizza size</option>
                 </select>
               </div>
               <div class="form-group">
-                <select name="" id="" class="form-control crust-type">
+                <select name="" class="form-control" id="crust-type">
                   <option value="">Select crust</option>
                 </select>
               </div>
               <div class="form-group">
-                <select name="" id="" class="form-control toppings">
+                <select name="" class="form-control" id="toppings">
                   <option value="">Select toppings</option>
                 </select>
               </div>
             </div>
-            <div class="delivery-details">
+            <div class="delivery-details hide-div">
               <div class="form-check">
                 <input
                   class="form-check-input"
@@ -110,7 +110,7 @@
                 />
               </div>
             </div>
-            <input type="hidden" value="place-new-order" />
+            <input type="hidden" value="place-new-order" id="form-action"/>
             <div class="button-group">
               <button class="btn-submit">Place order</button>
               <button type="button" class="btn-submit" disabled>

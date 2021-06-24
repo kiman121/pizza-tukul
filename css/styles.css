@@ -56,6 +56,9 @@ h1 {
 .hide-alert{
     display: none;
 }
+.validate{
+    border-color: red !important;
+}
 button + button {
   margin-left: 2em;
 }
