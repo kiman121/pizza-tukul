@@ -16,14 +16,11 @@ $(document).ready(function () {
         .siblings("label")
         .text()
         .trim(),
-      pizzaToppings = {};
+      pizzaToppings = [];
 
     $(".pizza-toppings-option:checked").each(function () {
-      var key = $(this).parents("label").text().trim(),
-        value = $(this).val();
-      pizzaToppings[key] = value;
+      pizzaToppings.push($(this).val());
     });
-    // console.log(sizeDescription);
 
     const newOrderDetails = new OrderDetails(
       orderId,
@@ -31,11 +28,33 @@ $(document).ready(function () {
       { crustDescription: crustDescription, crustCost: crustCost },
       pizzaToppings
     );
+
     newFinalOrder.orders.push(newOrderDetails);
 
+    var lineTotal = newOrderDetails.total();
+    $(".order-items ul").append(
+      '<li class="order-item"> <span class="remove-order-item">&times;</span> ' +
+        crustDescription +
+        " " +
+        sizeDescription +
+        ' sized pizza <span class="price-tag">' +
+        formatCurrency(lineTotal) +
+        " ksh</span> </li>"
+    );
+
+    var deliveryFee = 0;
+    var subTotalAmount = newFinalOrder.total();
+    var vatPayable = Math.round(0.16 * (subTotalAmount + deliveryFee));
+    var totalOrderAmount = subTotalAmount + deliveryFee + vatPayable;
+
+    $(".subtotal").text(formatCurrency(subTotalAmount) + " ksh");
+    $(".delivery-fee").text(formatCurrency(deliveryFee) + " ksh");
+    $(".vat-payable").text(formatCurrency(vatPayable) + " ksh");
+    $(".total-order-amount").text(formatCurrency(totalOrderAmount) + " ksh");
+
     orderId++;
-    
-    console.log(newFinalOrder.total());
+
+    // console.log(newFinalOrder.total());
   });
 
   $(".btn-order").click(function (event) {
@@ -63,26 +82,42 @@ function FinalOrder() {
   this.orders = [];
 }
 
+FinalOrder.prototype.total = function () {
+  var sizeCost = 0,
+    total = 0,
+    crustCost = 0;
+    
+  this.orders.forEach(function (order) {
+    sizeCost = parseFloat(order.pizzaSize.sizeCost);
+    crustCost = parseFloat(order.pizzaCrust.crustCost);
+    var topingCost = 0;
+    order.pizzaToppings.forEach(function (pizzaTopping) {
+        console.log(pizzaTopping)
+      topingCost = topingCost + parseFloat(pizzaTopping);
+    });
+    total = total + sizeCost + crustCost + topingCost;
+  });
+  return total;
+};
+
 function OrderDetails(orderId, pizzaSize, pizzaCrust, pizzaToppings) {
   this.orderId = orderId;
   this.pizzaSize = pizzaSize;
   this.pizzaCrust = pizzaCrust;
   this.pizzaToppings = pizzaToppings;
 }
-FinalOrder.prototype.total = function () {
-  var sizeCost = 0,
-    total = 0,
-    crustCost = 0,
-    topingCost = 0;
 
-  this.orders.forEach(function (order) {
-    sizeCost = parseFloat(order.pizzaSize.sizeCost);
-    crustCost = parseFloat(order.pizzaCrust.crustCost);
-    $.each(order.pizzaToppings, function(key, value){
-        topingCost =  topingCost + parseFloat(value);
-    })
-    total = total + sizeCost + crustCost + topingCost;
+OrderDetails.prototype.total = function () {
+  var sizeCost = parseFloat(this.pizzaSize.sizeCost),
+    crustCost = parseFloat(this.pizzaCrust.crustCost),
+    topingCost = 0,
+    total = 0;
+
+  this.pizzaToppings.forEach(function (pizzaTopping) {
+    topingCost = topingCost + parseFloat(parseFloat(pizzaTopping));
   });
+
+  total = total + sizeCost + crustCost + topingCost;
 
   return total;
 };

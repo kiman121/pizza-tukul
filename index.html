@@ -70,60 +70,32 @@
             </svg>
             <p>Your cart is empty. Start adding you tukul order.</p>
           </div>
-
-          <div class="order-items">
-            <ul>
-              <li class="order-item">
-                <span class="remove-order-item">&times;</span> Chicken Hawaiian
-                <span class="price-tag">240ksh</span>
-              </li>
-              <li class="order-item">
-                <span class="remove-order-item">&times;</span> Chicken Hawaiian
-                <span class="price-tag">240ksh</span>
-              </li>
-            </ul>
-          </div>
           <div class="order-summary">
-            <ul>
-              <li class="summary-item">
-                Subtotal <span class="price-tag">480Ksh</span>
-              </li>
-              <li class="summary-item">
-                Delivery fee <span class="price-tag">79Ksh</span>
-              </li>
-              <li class="summary-item">
-                VAT 16% <span class="price-tag">77Ksh</span>
-              </li>
-              <li class="summary-total">
-                VAT 16% <span class="price-tag">559Ksh</span>
-              </li>
-            </ul>
-          </div>
-          <a href="#" class="btn btn-order">Check Out</a>
-          <div class="form-wrapper hide-div">
-            <form action="">
-              <div class="delivery-address">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control phone-number"
-                    placeholder="Enter phone number..."
-                  />
-                </div>
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control address"
-                    placeholder="Enter delivery address..."
-                  />
-                </div>
+              <div class="order-items">
+                <ul>
+                  <!-- <li class="order-item">
+                    <span class="remove-order-item">&times;</span> Chicken Hawaiian
+                    <span class="price-tag">240ksh</span>
+                  </li> -->
+                </ul>
               </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-submit">
-                  Proceed to Checkout
-                </button>
+              <div class="order-totals">
+                <ul>
+                  <li class="summary-item">
+                    Subtotal <span class="price-tag subtotal"></span>
+                  </li>
+                  <li class="summary-item">
+                    Delivery fee <span class="price-tag delivery-fee"></span>
+                  </li>
+                  <li class="summary-item">
+                    VAT 16% <span class="price-tag vat-payable"></span>
+                  </li>
+                  <li class="summary-total">
+                    Total <span class="price-tag total-order-amount"></span>
+                  </li>
+                </ul>
               </div>
-            </form>
+              <a href="#" class="btn btn-order">Check Out</a>
           </div>
         </div>
       </div>
@@ -236,7 +208,10 @@
                   <label class="form-check-label">
                     <input
                       type="checkbox"
-                      class="form-check-input pizza-toppings-option pizza-options"
+                      class="
+                        form-check-input
+                        pizza-toppings-option pizza-options
+                      "
                       value="180"
                     />Bacon </label
                   ><span data-price="180" class="price-tag">180ksh</span>
@@ -245,7 +220,10 @@
                   <label class="form-check-label">
                     <input
                       type="checkbox"
-                      class="form-check-input pizza-toppings-option pizza-options"
+                      class="
+                        form-check-input
+                        pizza-toppings-option pizza-options
+                      "
                       value="180"
                     />Bbq steak </label
                   ><span data-price="180" class="price-tag">180ksh</span>
@@ -254,7 +232,10 @@
                   <label class="form-check-label">
                     <input
                       type="checkbox"
-                      class="form-check-input pizza-toppings-option pizza-options"
+                      class="
+                        form-check-input
+                        pizza-toppings-option pizza-options
+                      "
                       value="180"
                     />Pepperoni </label
                   ><span data-price="180" class="price-tag">180ksh</span>
@@ -263,13 +244,15 @@
                   <label class="form-check-label">
                     <input
                       type="checkbox"
-                      class="form-check-input pizza-toppings-option pizza-options"
+                      class="
+                        form-check-input
+                        pizza-toppings-option pizza-options
+                      "
                       value="180"
                     />Peri-peri chicken </label
                   ><span data-price="180" class="price-tag">180ksh</span>
                 </div>
               </div>
-
             </form>
           </div>
           <div class="modal-footer">
