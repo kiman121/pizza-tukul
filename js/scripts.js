@@ -16,25 +16,45 @@ $(document).ready(function () {
         resetFieldValues(validationFields);
         // console.log("Continue coding");
       }
-    } else if(formAction === "check-out"){
-        validationFields = [""]
+    } else if (formAction === "check-out-for-collection") {
+      validationFields = ["phone-number"];
+      var validated = validateUserInput(validationFields, "form-alerts");
+    } else if (formAction === "check-out-for-delivery") {
+      validationFields = ["phone-number", "region", "address"];
+      var validated = validateUserInput(validationFields, "form-alerts");
     }
   });
 
   $(".check-out-option ul li").click(function () {
-      var action = "", btnText = "";
+    var action = "",
+      btnText = "";
     if ($(this).data("action") === "addorder") {
       $(".order-details").removeClass("hide-div");
-      action = "place-new-order"
-      btnText = "Add order"
+      action = "place-new-order";
+      btnText = "Add order";
     } else {
       $(".delivery-details").removeClass("hide-div");
-      action = "check-out"
-      btnText = "Check out"
+      action = "check-out-for-collection";
+      btnText = "Check out";
     }
     $(".check-out-option").addClass("hide-div");
     $(".btn-submit").removeClass("hide-btn");
-    $(".btn-submit").text(btnText)
+    $(".btn-submit").text(btnText);
+    $("#form-action").val(action);
+  });
+  $(".delivery-mode").click(function () {
+    var action = "",
+      btnText = "";
+    if ($(this).data("action") === "checkoutforcollection") {
+      $(".delivery-address").addClass("hide-div");
+      action = "check-out-for-collection";
+    //   btnText = "Add order";
+    } else if($(this).data("action") === "checkoutfordelivery") {
+      $(".delivery-address").removeClass("hide-div");
+      action = "check-out-for-delivery";
+    //   btnText = "Check out";
+    }
+    // $(".btn-submit").text(btnText);
     $("#form-action").val(action);
   });
 });
@@ -47,6 +67,8 @@ function validateUserInput(formInputFields, alertDivClass) {
     var field = formInputField,
       thisField = $("." + field),
       value = thisField.val();
+
+    console.log(thisField.prop("type"));
 
     if (value === "") {
       validated = false;

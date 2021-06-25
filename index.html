@@ -43,6 +43,46 @@
     </section>
     <section class="main-content">
       <div class="row">
+        <div class="col-md-6 intro">
+          <h1>For the love of pizza</h1>
+          <div class="row">
+            <div class="col-md-6">
+              <p>It's only pizza if its tukul made!</p>
+              <a href="#order-section" class="btn btn-order">Order Now</a>
+            </div>
+            <div class="col-md-6"><img src="images/chef.jpeg" alt="" /></div>
+          </div>
+        </div>
+        <div class="col-md-6 order-details">
+          <div class="empty-cart">
+            <h5>Your order</h5>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10%"
+              height="20%"
+              fill="currentColor"
+              class="bi bi-cart"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+              />
+            </svg>
+            <!-- <img src="images/cart-icon.jpeg" alt="" /> -->
+            <p>Your cart is empty. Start adding you tukul order.</p>
+          </div>
+          <div class="form-wrapper hide-div">
+            <form action="">
+              <div class="form-group">
+                <button type="submit" class="btn btn-submit">
+                  Proceed to Checkout
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row" id="order-section">
         <div class="col-md-6 order-choices">
           <form action="" id="pizza-order">
             <h2 class="header-stub">Palce Order</h2>
@@ -76,6 +116,7 @@
             <div class="delivery-details hide-div">
               <div class="form-check">
                 <input
+                data-action = "checkoutforcollection"
                   class="form-check-input delivery-mode"
                   type="radio"
                   name="exampleRadios"
@@ -84,11 +125,12 @@
                   checked
                 />
                 <label class="form-check-label" for="exampleRadios1">
-                  Default radio
+                  To collect
                 </label>
               </div>
               <div class="form-check">
                 <input
+                    data-action = "checkoutfordelivery"
                   class="form-check-input delivery-mode"
                   type="radio"
                   name="exampleRadios"
@@ -96,27 +138,29 @@
                   value="option2"
                 />
                 <label class="form-check-label" for="exampleRadios2">
-                  Second default radio
+                  Delivery
                 </label>
               </div>
               <div class="form-group">
                 <input
-                  class="form-control"
+                  class="form-control phone-number"
                   type="text"
                   placeholder="Phone number"
                 />
               </div>
-              <div class="form-group">
-                <select class="form-control region" name="" id="">
-                  <option value="">Region</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <input
-                  class="form-control address"
-                  type="text"
-                  placeholder="Delivery address"
-                />
+              <div class="delivery-address hide-div">
+                  <div class="form-group">
+                    <select class="form-control region" name="" id="">
+                      <option value="">Region</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      class="form-control address"
+                      type="text"
+                      placeholder="Delivery address"
+                    />
+                  </div>
               </div>
             </div>
             <input type="hidden" value="place-new-order" id="form-action"/>
@@ -132,7 +176,73 @@
           </form>
         </div>
         <div class="col-md-6 oder-summary"></div>
-      </div>
+      </div> -->
     </section>
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="fill-order"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
