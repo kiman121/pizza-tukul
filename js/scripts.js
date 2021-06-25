@@ -4,10 +4,27 @@ $(document).ready(function () {
   $("form#place-order").submit(function (event) {
     event.preventDefault();
     var sizeCost = $(".pizza-size-option:checked").val(),
-        sizeText = $(".pizza-size-option:checked").siblings("label").text();
+      sizeDescription = $(".pizza-size-option:checked")
+        .siblings("label")
+        .text(),
+      crustCost = $(".pizza-crust-option:checked").val(),
+      crustDescription = $(".pizza-crust-option:checked")
+        .siblings("label")
+        .text();
+    toppingsCostDescription = [];
+
+    $(".pizza-toppings-option:checked").each(function () {
+      var key = $(this).parents("label").text(),
+        value = $(this).val();
+      toppingsCostDescription[key] = value;
+    });
+
+    
+
+
+
     //   validationFields = [];
-    console.log(sizeCost,sizeText);
-    console.log("code");
+    console.log(toppingsCostDescription);
   });
 
   $(".btn-order").click(function (event) {
@@ -29,12 +46,6 @@ $(document).ready(function () {
     }
     $(".modal-subtotal").text(formatCurrency(newOrder.total()));
   });
-
-//   $(".pizza-size-option").click(function () {
-//     newOrder.pizzaSizeCost = $(this).val();
-//     fetchTotal();
-//     // description = $(this).siblings("label").text();
-//   });
 });
 function Order() {
   this.pizzaSizeCost = 0;
@@ -100,8 +111,8 @@ function resetFieldValues(formInputFields) {
   });
 }
 function formatCurrency(amount) {
-    return parseFloat(amount, 10)
-      .toFixed(2)
-      .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-      .toString();
-  }
+  return parseFloat(amount, 10)
+    .toFixed(2)
+    .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+    .toString();
+}
