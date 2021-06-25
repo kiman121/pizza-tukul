@@ -47,7 +47,7 @@
           <h1>For the love of pizza</h1>
           <div class="row">
             <div class="col-md-6">
-              <p>It's only pizza if its tukul made!</p>
+              <p>It's only pizza if tukul made!</p>
               <a href="#order-section" class="btn btn-order">Order Now</a>
             </div>
             <div class="col-md-6"><img src="images/chef.jpeg" alt="" /></div>
@@ -68,7 +68,6 @@
                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
               />
             </svg>
-            <!-- <img src="images/cart-icon.jpeg" alt="" /> -->
             <p>Your cart is empty. Start adding you tukul order.</p>
           </div>
           <div class="form-wrapper hide-div">
@@ -178,37 +177,7 @@
         <div class="col-md-6 oder-summary"></div>
       </div> -->
     </section>
-    <div class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Modal -->
+    <!-- Fill Order Modal -->
     <div
       class="modal fade"
       id="fill-order"
@@ -230,7 +199,147 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <form action="">
+              <div class="pizza-size">
+                <h6>Choose pizza size</h6>
+                <div class="form-check">
+                  <input
+                    data-action="checkoutforcollection"
+                    class="form-check-input delivery-mode"
+                    type="radio"
+                    name="pizzaSize"
+                    id="pizzaSize1"
+                    value="mega"
+                  />
+                  <label class="form-check-label" for="pizzaSize1">
+                    Mega
+                  </label>
+                  <span data-price="1200" class="price-tag">1,200ksh</span>
+                </div>
+                <div class="form-check">
+                  <input
+                    data-action="checkoutfordelivery"
+                    class="form-check-input delivery-mode"
+                    type="radio"
+                    name="pizzaSize"
+                    id="pizzaSize2"
+                    value="large"
+                  />
+                  <label class="form-check-label" for="pizzaSize2">
+                    Large </label
+                  ><span data-price="1000" class="price-tag">1,000ksh</span>
+                </div>
+                <div class="form-check">
+                  <input
+                    data-action="checkoutfordelivery"
+                    class="form-check-input delivery-mode"
+                    type="radio"
+                    name="pizzaSize"
+                    id="pizzaSize3"
+                    value="medium"
+                  />
+                  <label class="form-check-label" for="pizzaSize3">
+                    Medium </label
+                  ><span data-price="800" class="price-tag">800ksh</span>
+                </div>
+                <div class="form-check">
+                  <input
+                    data-action="checkoutfordelivery"
+                    class="form-check-input delivery-mode"
+                    type="radio"
+                    name="pizzaSize"
+                    id="pizzaSize4"
+                    value="small"
+                  />
+                  <label class="form-check-label" for="pizzaSize4">
+                    Small </label
+                  ><span data-price="600" class="price-tag">600ksh</span>
+                </div>
+              </div>
+              <div class="pizza-crust">
+                <h6>Choose preferred crust</h6>
+                <div class="form-check">
+                  <input
+                    data-action="checkoutforcollection"
+                    class="form-check-input delivery-mode"
+                    type="radio"
+                    name="pizzaCrust"
+                    id="pizzaCrust1"
+                    value="crispy"
+                  />
+                  <label class="form-check-label" for="pizzaCrust1">
+                    Crispy
+                  </label><span data-price="1200" class="price-tag">1,200ksh</span>
+                </div>
+                <div class="form-check">
+                  <input
+                    data-action="checkoutfordelivery"
+                    class="form-check-input delivery-mode"
+                    type="radio"
+                    name="pizzaCrust"
+                    id="pizzaCrust2"
+                    value="stuffed"
+                  />
+                  <label class="form-check-label" for="pizzaCrust2">
+                    Stuffed </label
+                  ><span data-price="1000" class="price-tag">1,000ksh</span>
+                </div>
+                <div class="form-check">
+                  <input
+                    data-action="checkoutfordelivery"
+                    class="form-check-input delivery-mode"
+                    type="radio"
+                    name="pizzaCrust"
+                    id="pizzaCrust3"
+                    value="gluten-free"
+                  />
+                  <label class="form-check-label" for="pizzaCrust3">
+                    Gluten-free </label
+                  ><span data-price="800" class="price-tag">800ksh</span>
+                </div>
+              </div>
+              <div class="pizza-toppings">
+                <h6>Choose desired topings</h6>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      value=""
+                    />Bacon
+                  </label><span data-price="180" class="price-tag">180ksh</span>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      value=""
+                    />Bbq steak
+                  </label><span data-price="180" class="price-tag">180ksh</span>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      value=""
+                    />Pepperoni
+                  </label><span data-price="180" class="price-tag">180ksh</span>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      value=""
+                    />Peri-peri chicken
+                  </label><span data-price="180" class="price-tag">180ksh</span>
+                </div>
+              </div>
+            </form>
+          </div>
           <div class="modal-footer">
             <button
               type="button"

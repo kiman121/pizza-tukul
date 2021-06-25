@@ -25,38 +25,43 @@ $(document).ready(function () {
     }
   });
 
-  $(".check-out-option ul li").click(function () {
-    var action = "",
-      btnText = "";
-    if ($(this).data("action") === "addorder") {
-      $(".order-details").removeClass("hide-div");
-      action = "place-new-order";
-      btnText = "Add order";
-    } else {
-      $(".delivery-details").removeClass("hide-div");
-      action = "check-out-for-collection";
-      btnText = "Check out";
-    }
-    $(".check-out-option").addClass("hide-div");
-    $(".btn-submit").removeClass("hide-btn");
-    $(".btn-submit").text(btnText);
-    $("#form-action").val(action);
+  $(".btn-order").click(function(event){
+    event.preventDefault();
+    $("#fill-order").modal("show");
   });
-  $(".delivery-mode").click(function () {
-    var action = "",
-      btnText = "";
-    if ($(this).data("action") === "checkoutforcollection") {
-      $(".delivery-address").addClass("hide-div");
-      action = "check-out-for-collection";
-    //   btnText = "Add order";
-    } else if($(this).data("action") === "checkoutfordelivery") {
-      $(".delivery-address").removeClass("hide-div");
-      action = "check-out-for-delivery";
-    //   btnText = "Check out";
-    }
-    // $(".btn-submit").text(btnText);
-    $("#form-action").val(action);
-  });
+
+//   $(".check-out-option ul li").click(function () {
+//     var action = "",
+//       btnText = "";
+//     if ($(this).data("action") === "addorder") {
+//       $(".order-details").removeClass("hide-div");
+//       action = "place-new-order";
+//       btnText = "Add order";
+//     } else {
+//       $(".delivery-details").removeClass("hide-div");
+//       action = "check-out-for-collection";
+//       btnText = "Check out";
+//     }
+//     $(".check-out-option").addClass("hide-div");
+//     $(".btn-submit").removeClass("hide-btn");
+//     $(".btn-submit").text(btnText);
+//     $("#form-action").val(action);
+//   });
+//   $(".delivery-mode").click(function () {
+//     var action = "",
+//       btnText = "";
+//     if ($(this).data("action") === "checkoutforcollection") {
+//       $(".delivery-address").addClass("hide-div");
+//       action = "check-out-for-collection";
+//     //   btnText = "Add order";
+//     } else if($(this).data("action") === "checkoutfordelivery") {
+//       $(".delivery-address").removeClass("hide-div");
+//       action = "check-out-for-delivery";
+//     //   btnText = "Check out";
+//     }
+//     // $(".btn-submit").text(btnText);
+//     $("#form-action").val(action);
+//   });
 });
 
 function validateUserInput(formInputFields, alertDivClass) {

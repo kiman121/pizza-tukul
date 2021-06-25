@@ -86,6 +86,9 @@ h1 {
     height: auto;
     color: #fff;
 }
+span.price-tag{
+    float: right;
+}
 .hide-div,
 .hide-alert,
 .hide-btn {
