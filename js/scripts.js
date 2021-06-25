@@ -3,8 +3,11 @@ $(document).ready(function () {
 
   $("form#place-order").submit(function (event) {
     event.preventDefault();
-    var formAction = $("input#form-action").val(),
-      validationFields = [];
+    var sizeCost = $(".pizza-size-option:checked").val(),
+        sizeText = $(".pizza-size-option:checked").siblings("label").text();
+    //   validationFields = [];
+    console.log(sizeCost,sizeText);
+    console.log("code");
   });
 
   $(".btn-order").click(function (event) {
@@ -24,29 +27,13 @@ $(document).ready(function () {
       });
       newOrder.pizzaToppingsCost = toppingsCost;
     }
-    $(".modal-subtotal").text(newOrder.total());
+    $(".modal-subtotal").text(formatCurrency(newOrder.total()));
   });
 
 //   $(".pizza-size-option").click(function () {
 //     newOrder.pizzaSizeCost = $(this).val();
 //     fetchTotal();
 //     // description = $(this).siblings("label").text();
-//   });
-
-//   $(".pizza-crust-option").click(function () {
-//     newOrder.pizzaCrustCost = $(this).val();
-//     fetchTotal();
-//   });
-
-//   $(".pizza-toppings-option").click(function () {
-//     var toppingsCost = [];
-
-//     $(".pizza-toppings-option:checked").each(function () {
-//       toppingsCost.push($(this).val());
-//     });
-
-//     newOrder.pizzaToppingsCost = toppingsCost;
-//     $(".modal-subtotal").text(fetchTotal());
 //   });
 });
 function Order() {
@@ -57,7 +44,6 @@ function Order() {
 }
 
 Order.prototype.total = function () {
-  // console.log(typeof(this.pizzaSizeCost));
   var sizeCostings = parseFloat(this.pizzaSizeCost),
     crustCosting = parseFloat(this.pizzaCrustCost),
     toppingCosting = 0,
@@ -113,3 +99,9 @@ function resetFieldValues(formInputFields) {
     $("." + formInputField).val("");
   });
 }
+function formatCurrency(amount) {
+    return parseFloat(amount, 10)
+      .toFixed(2)
+      .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+      .toString();
+  }
