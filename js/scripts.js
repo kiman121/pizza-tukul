@@ -1,30 +1,41 @@
 $(document).ready(function () {
-  const newOrder = new Order();
+  const newOrder = new Order(),
+    newFinalOrder = new FinalOrder();
+  var orderId = 1;
 
   $("form#place-order").submit(function (event) {
     event.preventDefault();
+
     var sizeCost = $(".pizza-size-option:checked").val(),
       sizeDescription = $(".pizza-size-option:checked")
         .siblings("label")
-        .text(),
+        .text()
+        .trim(),
       crustCost = $(".pizza-crust-option:checked").val(),
       crustDescription = $(".pizza-crust-option:checked")
         .siblings("label")
-        .text();
-    toppingsCostDescription = [];
+        .text()
+        .trim(),
+      pizzaToppings = {};
 
     $(".pizza-toppings-option:checked").each(function () {
-      var key = $(this).parents("label").text(),
+      var key = $(this).parents("label").text().trim(),
         value = $(this).val();
-      toppingsCostDescription[key] = value;
+      pizzaToppings[key] = value;
     });
+    // console.log(sizeDescription);
 
+    const newOrderDetails = new OrderDetails(
+      orderId,
+      { sizeDescription: sizeDescription, sizeCost: sizeCost },
+      { crustDescription: crustDescription, crustCost: crustCost },
+      pizzaToppings
+    );
+    newFinalOrder.orders.push(newOrderDetails);
+
+    orderId++;
     
-
-
-
-    //   validationFields = [];
-    console.log(toppingsCostDescription);
+    console.log(newFinalOrder.total());
   });
 
   $(".btn-order").click(function (event) {
@@ -47,6 +58,34 @@ $(document).ready(function () {
     $(".modal-subtotal").text(formatCurrency(newOrder.total()));
   });
 });
+
+function FinalOrder() {
+  this.orders = [];
+}
+
+function OrderDetails(orderId, pizzaSize, pizzaCrust, pizzaToppings) {
+  this.orderId = orderId;
+  this.pizzaSize = pizzaSize;
+  this.pizzaCrust = pizzaCrust;
+  this.pizzaToppings = pizzaToppings;
+}
+FinalOrder.prototype.total = function () {
+  var sizeCost = 0,
+    total = 0,
+    crustCost = 0,
+    topingCost = 0;
+
+  this.orders.forEach(function (order) {
+    sizeCost = parseFloat(order.pizzaSize.sizeCost);
+    crustCost = parseFloat(order.pizzaCrust.crustCost);
+    $.each(order.pizzaToppings, function(key, value){
+        topingCost =  topingCost + parseFloat(value);
+    })
+    total = total + sizeCost + crustCost + topingCost;
+  });
+
+  return total;
+};
 function Order() {
   this.pizzaSizeCost = 0;
   this.pizzaCrustCost = 0;
