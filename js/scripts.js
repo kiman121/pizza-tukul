@@ -1,6 +1,5 @@
 $(document).ready(function () {
   const newOrder = new Order();
-  var fetchTotal = false;
 
   $("form#place-order").submit(function (event) {
     event.preventDefault();
@@ -12,42 +11,60 @@ $(document).ready(function () {
     event.preventDefault();
     $("#fill-order").modal("show");
   });
-  $(".pizza-size-option").click(function () {
-    newOrder.pizzaSizeCost = $(this).val();
-    // description = $(this).siblings("label").text();
+
+  $(".pizza-options").click(function () {
+    if ($(this).hasClass("pizza-size-option")) {
+      newOrder.pizzaSizeCost = $(this).val();
+    } else if ($(this).hasClass("pizza-crust-option")) {
+      newOrder.pizzaCrustCost = $(this).val();
+    } else if ($(this).hasClass("pizza-toppings-option")) {
+      var toppingsCost = [];
+      $(".pizza-toppings-option:checked").each(function () {
+        toppingsCost.push($(this).val());
+      });
+      newOrder.pizzaToppingsCost = toppingsCost;
+    }
+    $(".modal-subtotal").text(newOrder.total());
   });
 
-  $(".pizza-crust-option").click(function () {
-    newOrder.pizzaCrustCost = $(this).val();
-  });
+//   $(".pizza-size-option").click(function () {
+//     newOrder.pizzaSizeCost = $(this).val();
+//     fetchTotal();
+//     // description = $(this).siblings("label").text();
+//   });
 
-  $(".pizza-toppings-option").click(function () {
-    $(".pizza-toppings-option:checked").each(function () {
-      newOrder.pizzaToppingsCost.push($(this).val());
-    });
-  });
+//   $(".pizza-crust-option").click(function () {
+//     newOrder.pizzaCrustCost = $(this).val();
+//     fetchTotal();
+//   });
 
-  if (fetchTotal) {
-    var total = newOrder.total();
-    console.log(newOrder, total);
-    fetchTotal = false;
-  }
+//   $(".pizza-toppings-option").click(function () {
+//     var toppingsCost = [];
+
+//     $(".pizza-toppings-option:checked").each(function () {
+//       toppingsCost.push($(this).val());
+//     });
+
+//     newOrder.pizzaToppingsCost = toppingsCost;
+//     $(".modal-subtotal").text(fetchTotal());
+//   });
 });
 function Order() {
-  this.pizzaSizeCost = "";
-  this.pizzaCrustCost = "";
+  this.pizzaSizeCost = 0;
+  this.pizzaCrustCost = 0;
   this.pizzaToppingsCost = [];
   this.deliveryAddress = [];
 }
 
 Order.prototype.total = function () {
+  // console.log(typeof(this.pizzaSizeCost));
   var sizeCostings = parseFloat(this.pizzaSizeCost),
     crustCosting = parseFloat(this.pizzaCrustCost),
     toppingCosting = 0,
     total = 0;
 
   this.pizzaToppingsCost.forEach(function (pizzaToppingCost) {
-    toppingCosting = toppingCosting + parseFloat(this.pizzaToppingCost);
+    toppingCosting = toppingCosting + parseFloat(pizzaToppingCost);
   });
 
   total = sizeCostings + crustCosting + toppingCosting;
