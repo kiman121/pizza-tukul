@@ -34,7 +34,9 @@ $(document).ready(function () {
 
     var lineTotal = newOrderDetails.total();
     $(".order-items ul").append(
-      '<li class="order-item"> <span class="remove-order-item">&times;</span> ' +
+      '<li class="order-item"><a data-orderid="' +
+        orderId +
+        '" href="#" id="remove-order-item"><span>&times;</span></a> ' +
         crustDescription +
         " " +
         sizeDescription +
@@ -58,14 +60,14 @@ $(document).ready(function () {
     event.preventDefault();
 
     var formAction = $(".delivery-form-action").val(),
-      phoneNumber = $(".phone-number").val(),
+      clientName = $(".client-name").val(),
       deliveryMode = $(".delivery-options:checked").val(),
       deliveryCost = 0,
       deliverytext = "";
 
     if (formAction === "collection") {
       fieldsToValidate = {
-        inputs: ["phone-number"],
+        inputs: ["client-name"],
         options: ["delivery-options"],
       };
       deliverytext = "be ready for collection in 30 minutes.";
@@ -84,7 +86,7 @@ $(document).ready(function () {
         " in 30 to 40 minutes.";
       deliveryCost = $(".delivery-region").children("option:selected").val();
       fieldsToValidate = {
-        inputs: ["phone-number", "delivery-region", "delivery-location"],
+        inputs: ["client-name", "delivery-region", "delivery-location"],
         options: ["delivery-options"],
       };
       newAddress = new Address(deliveryRegion, deliveryLocation);
@@ -92,7 +94,7 @@ $(document).ready(function () {
     }
 
     if (validateUserInput(fieldsToValidate, "delivery-details-form-alerts")) {
-      newFinalOrder.clientPhoneNumber = phoneNumber;
+      newFinalOrder.clientName = clientName;
       newFinalOrder.deliveryMode = deliveryMode;
       newFinalOrder.deliveryCost = deliveryCost;
 
@@ -102,26 +104,39 @@ $(document).ready(function () {
       setOrderTotals(parseFloat(subTotalAmount), parseFloat(deliveryFee));
 
       $("#check-out-btn").text("Confirm order");
+      $("#check-out-btn").data("btnaction", "order-checkout");
       $(".check-out-alerts").text(
-        phoneNumber + ", we have received your order and will " + deliverytext
+        clientName + ", we have received your order and will " + deliverytext
       );
       $(".check-out-alerts").removeClass("hide-alert");
-      console.log(subTotalAmount, deliveryFee);
-      console.log(newFinalOrder);
     }
   });
 
   $(".btn-submit").click(function (event) {
     event.preventDefault();
     var btnAction = $(this).data("btnaction"),
-      modalToShow = "";
+      modalToShow = "",
+      showModal = true;
 
     if (btnAction === "place-order") {
       modalToShow = "fill-order";
     } else if (btnAction === "delivery-options") {
       modalToShow = "delivery-details";
+    } else if (btnAction === "order-checkout"){
+      showModal = false;
+      $(".order-summary").addClass("hide-div");
+      $(".completion-message").empty().html("Your order has been received. We are glad serving you.");
+      $(".completion-message").removeClass("hide-div");
+
+      setTimeout(() => {
+        $(".completion-message").addClass("hide-div");
+        $(".empty-cart").removeClass("hide-div");
+      }, 4500);
     }
-    $("#" + modalToShow).modal("show");
+
+    if(showModal){
+      $("#" + modalToShow).modal("show");
+    }
   });
 
   $(".pizza-options").click(function () {
@@ -149,11 +164,33 @@ $(document).ready(function () {
       $(".delivery-form-action").val("delivery");
     }
   });
+
+  $(document).on("click", "#remove-order-item", function (event) {
+    event.preventDefault();
+    var orders = newFinalOrder.orders,
+      selectedOrderId = $(this).data("orderid"),
+      newOrder = [];
+
+    orders.forEach(function (order) {
+      if (order.orderId != selectedOrderId) {
+        newOrder.push(order);
+      }
+    });
+
+    newFinalOrder.orders = newOrder;
+
+    var deliveryFee = newFinalOrder.deliveryCost;
+    var subTotalAmount = newFinalOrder.total();
+
+    setOrderTotals(parseFloat(subTotalAmount), parseFloat(deliveryFee));
+
+    $(this).parents(".order-item").remove();
+  });
 });
 
 function FinalOrder() {
   this.orders = [];
-  this.clientPhoneNumber = "";
+  this.clientName = "";
   this.deliveryMode = "";
   this.deliveryCost = 0;
   this.deliveryAddress = [];
@@ -275,7 +312,6 @@ function formatCurrency(amount) {
 
 function setOrderTotals(subTotalAmount, deliveryFee) {
   var vatPayable = Math.round(0.16 * (subTotalAmount + deliveryFee));
-  console.log(subTotalAmount, deliveryFee, vatPayable);
   var totalOrderAmount = subTotalAmount + deliveryFee + vatPayable;
 
   $(".order-totals")
@@ -292,6 +328,7 @@ function setOrderTotals(subTotalAmount, deliveryFee) {
         " ksh</span> </li> </ul>"
     );
 }
+
 function validateUserInput(fieldsToValidate, alertDivClass) {
   var validated = true,
     field = "";

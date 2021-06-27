@@ -57,10 +57,7 @@
         </div>
         <div class="col-md-6 order-details">
           <h5>Order Summary</h5>
-          <div
-            class="alert hide-alert alert-success check-out-alerts"
-            role="alert"
-          ></div>
+          
           <div class="empty-cart">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,6 +74,10 @@
             <p>Your cart is empty. Start adding you tukul order.</p>
           </div>
           <div class="order-summary hide-div">
+            <div
+            class="alert hide-alert alert-success check-out-alerts"
+            role="alert"
+          ></div>
             <div class="order-items">
               <ul></ul>
             </div>
@@ -89,6 +90,7 @@
               >Check Out</a
             >
           </div>
+          <div class="completion-message hide-div"></div>
         </div>
       </div>
     </section>
@@ -313,8 +315,8 @@
                 <div class="form-group">
                   <input
                     type="text"
-                    class="form-control phone-number"
-                    placeholder="Phone number..."
+                    class="form-control client-name"
+                    placeholder="Enter name..."
                   />
                 </div>
               </div>
@@ -323,30 +325,14 @@
                 <div class="form-group">
                   <select class="form-control delivery-region" name="" id="">
                     <option value="">Select region</option>
-                    <option value="50">
-                      Central<i class="price-tag">50ksh</i>
-                    </option>
-                    <option value="200">
-                      Dagoreti<span class="price-tag">200ksh</span>
-                    </option>
-                    <option value="250">
-                      Embakasi<span class="price-tag">250ksh</span>
-                    </option>
-                    <option value="200">
-                      Kasarani<span class="price-tag">200ksh</span>
-                    </option>
-                    <option value="150">
-                      Kibera<span class="price-tag">150ksh</span>
-                    </option>
-                    <option value="200">
-                      Makadara<span class="price-tag">200ksh</span>
-                    </option>
-                    <option value="200">
-                      Pumwani<span class="price-tag">200ksh</span>
-                    </option>
-                    <option value="220">
-                      Westlands<span class="price-tag">220ksh</span>
-                    </option>
+                    <option value="50">Central</option>
+                    <option value="200">Dagoreti</option>
+                    <option value="250">Embakasi</option>
+                    <option value="200">Kasarani</option>
+                    <option value="150">Kibera</option>
+                    <option value="200">Makadara</option>
+                    <option value="200">Pumwani</option>
+                    <option value="220">Westlands</option>
                   </select>
                 </div>
                 <div class="form-group">
