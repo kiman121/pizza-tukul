@@ -52,9 +52,11 @@ $(document).ready(function () {
     $(".vat-payable").text(formatCurrency(vatPayable) + " ksh");
     $(".total-order-amount").text(formatCurrency(totalOrderAmount) + " ksh");
 
+    $(".order-summary").removeClass("hide-div");
+    $(".empty-cart").addClass("hide-div");
+    
     orderId++;
 
-    // console.log(newFinalOrder.total());
   });
 
   $(".btn-order").click(function (event) {
