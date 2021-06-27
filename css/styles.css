@@ -40,8 +40,7 @@ h1 {
   display: block;
   text-align: right;
 }
-.btn-submit,
-.btn-order {
+.btn-submit{
   background-color: #23424a;
   color: #fff;
   width: 40%;
@@ -49,8 +48,7 @@ h1 {
   padding: 0.25em 0;
   border-radius: 4px;
 }
-.btn-submit:hover,
-.btn-order:hover {
+.btn-submit:hover{
   opacity: 0.75;
   color: #fff;
 }
@@ -88,6 +86,9 @@ h1 {
     width: 50%;
     height: auto;
     color: #fff;
+}
+.delivery-region option:after{
+  background-color: red;
 }
 span.price-tag{
     float: right;

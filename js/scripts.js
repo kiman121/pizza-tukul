@@ -1,7 +1,7 @@
 $(document).ready(function () {
   const newOrder = new Order(),
     newFinalOrder = new FinalOrder();
-  var orderId = 1;
+  var orderId = 1, fieldsToValidate = [];
 
   $("form#place-order").submit(function (event) {
     event.preventDefault();
@@ -54,14 +54,31 @@ $(document).ready(function () {
 
     $(".order-summary").removeClass("hide-div");
     $(".empty-cart").addClass("hide-div");
-    
-    orderId++;
 
+    orderId++;
   });
 
-  $(".btn-order").click(function (event) {
+  $("form#delivery-details").submit(function(event){
     event.preventDefault();
-    $("#fill-order").modal("show");
+    var formAction = $(".delivery-form-action").val();
+
+    if(formAction === "collection"){
+      
+    }
+  });
+
+  $(".btn-submit").click(function (event) {
+    event.preventDefault();
+    var btnAction = $(this).data("btnaction"),
+      modalToShow = "";
+
+    if (btnAction === "place-order") {
+      modalToShow = "fill-order";
+    } else if (btnAction === "delivery-options") {
+      modalToShow = "delivery-details";
+    }
+
+    $("#" + modalToShow).modal("show");
   });
 
   $(".pizza-options").click(function () {
@@ -78,6 +95,17 @@ $(document).ready(function () {
     }
     $(".modal-subtotal").text(formatCurrency(newOrder.total()));
   });
+
+  $(".delivery-options").click(function(){
+    var value = $(this).val();
+    if(value === "collect"){
+      $(".delivery-details").removeClass("hide-div").addClass("hide-div");
+      $(".delivery-form-action").val("collection");
+    } else if(value === "deliver"){
+      $(".delivery-details").removeClass("hide-div");
+      $(".delivery-form-action").val("deliver");
+    }
+  });
 });
 
 function FinalOrder() {
@@ -88,13 +116,13 @@ FinalOrder.prototype.total = function () {
   var sizeCost = 0,
     total = 0,
     crustCost = 0;
-    
+
   this.orders.forEach(function (order) {
     sizeCost = parseFloat(order.pizzaSize.sizeCost);
     crustCost = parseFloat(order.pizzaCrust.crustCost);
     var topingCost = 0;
     order.pizzaToppings.forEach(function (pizzaTopping) {
-        console.log(pizzaTopping)
+      console.log(pizzaTopping);
       topingCost = topingCost + parseFloat(pizzaTopping);
     });
     total = total + sizeCost + crustCost + topingCost;
