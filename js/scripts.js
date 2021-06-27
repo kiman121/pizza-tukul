@@ -7,53 +7,68 @@ $(document).ready(function () {
   $("form#place-order").submit(function (event) {
     event.preventDefault();
 
-    var sizeCost = $(".pizza-size-option:checked").val(),
-      sizeDescription = $(".pizza-size-option:checked")
-        .siblings("label")
-        .text()
-        .trim(),
-      crustCost = $(".pizza-crust-option:checked").val(),
-      crustDescription = $(".pizza-crust-option:checked")
-        .siblings("label")
-        .text()
-        .trim(),
-      pizzaToppings = [];
+    fieldsToValidate = {
+      checkboxes: [
+        "pizza-size-option",
+        "pizza-crust-option",
+        "pizza-toppings-option",
+      ],
+    };
 
-    $(".pizza-toppings-option:checked").each(function () {
-      pizzaToppings.push($(this).val());
-    });
+    if (validateUserInput(fieldsToValidate, "place-order-form-alerts")) {
+      var sizeCost = $(".pizza-size-option:checked").val(),
+        sizeDescription = $(".pizza-size-option:checked")
+          .siblings("label")
+          .text()
+          .trim(),
+        crustCost = $(".pizza-crust-option:checked").val(),
+        crustDescription = $(".pizza-crust-option:checked")
+          .siblings("label")
+          .text()
+          .trim(),
+        pizzaToppings = [];
 
-    const newOrderDetails = new OrderDetails(
-      orderId,
-      { sizeDescription: sizeDescription, sizeCost: sizeCost },
-      { crustDescription: crustDescription, crustCost: crustCost },
-      pizzaToppings
-    );
+      $(".pizza-toppings-option:checked").each(function () {
+        pizzaToppings.push($(this).val());
+      });
 
-    newFinalOrder.orders.push(newOrderDetails);
+      const newOrderDetails = new OrderDetails(
+        orderId,
+        { sizeDescription: sizeDescription, sizeCost: sizeCost },
+        { crustDescription: crustDescription, crustCost: crustCost },
+        pizzaToppings
+      );
 
-    var lineTotal = newOrderDetails.total();
-    $(".order-items ul").append(
-      '<li class="order-item"><a data-orderid="' +
-        orderId +
-        '" href="#" id="remove-order-item"><span>&times;</span></a> ' +
-        crustDescription +
-        " " +
-        sizeDescription +
-        ' sized pizza <span class="price-tag">' +
-        formatCurrency(lineTotal) +
-        " ksh</span> </li>"
-    );
+      newFinalOrder.orders.push(newOrderDetails);
 
-    var deliveryFee = newFinalOrder.deliveryCost;
-    var subTotalAmount = newFinalOrder.total();
+      var lineTotal = newOrderDetails.total();
+      $(".order-items ul").append(
+        '<li class="order-item"><a data-orderid="' +
+          orderId +
+          '" href="#" id="remove-order-item"><span>&times;</span></a> ' +
+          crustDescription +
+          " " +
+          sizeDescription +
+          ' sized pizza <span class="price-tag">' +
+          formatCurrency(lineTotal) +
+          " ksh</span> </li>"
+      );
 
-    setOrderTotals(parseFloat(subTotalAmount), parseFloat(deliveryFee));
+      var deliveryFee = newFinalOrder.deliveryCost;
+      var subTotalAmount = newFinalOrder.total();
 
-    $(".order-summary").removeClass("hide-div");
-    $(".empty-cart").addClass("hide-div");
+      setOrderTotals(parseFloat(subTotalAmount), parseFloat(deliveryFee));
 
-    orderId++;
+      $(".order-summary").removeClass("hide-div");
+      $(".empty-cart").addClass("hide-div");
+      $(".place-order").text("Add order");
+
+      closeModal('fill-order');
+      
+      resetFieldValues(fieldsToValidate);
+
+      orderId++;
+    }
   });
 
   $("form#delivery-detail").submit(function (event) {
@@ -68,7 +83,7 @@ $(document).ready(function () {
     if (formAction === "collection") {
       fieldsToValidate = {
         inputs: ["client-name"],
-        options: ["delivery-options"],
+        checkboxes: ["delivery-options"],
       };
       deliverytext = "be ready for collection in 30 minutes.";
     } else if (formAction === "delivery") {
@@ -87,7 +102,7 @@ $(document).ready(function () {
       deliveryCost = $(".delivery-region").children("option:selected").val();
       fieldsToValidate = {
         inputs: ["client-name", "delivery-region", "delivery-location"],
-        options: ["delivery-options"],
+        checkboxes: ["delivery-options"],
       };
       newAddress = new Address(deliveryRegion, deliveryLocation);
       newFinalOrder.deliveryAddress.push(newAddress);
@@ -109,6 +124,10 @@ $(document).ready(function () {
         clientName + ", we have received your order and will " + deliverytext
       );
       $(".check-out-alerts").removeClass("hide-alert");
+
+      closeModal('delivery-details');
+      
+      resetFieldValues(fieldsToValidate);
     }
   });
 
@@ -122,19 +141,22 @@ $(document).ready(function () {
       modalToShow = "fill-order";
     } else if (btnAction === "delivery-options") {
       modalToShow = "delivery-details";
-    } else if (btnAction === "order-checkout"){
+    } else if (btnAction === "order-checkout") {
       showModal = false;
       $(".order-summary").addClass("hide-div");
-      $(".completion-message").empty().html("Your order has been received. We are glad serving you.");
+      $(".completion-message")
+        .empty()
+        .html("Your order has been received. We are glad serving you.");
       $(".completion-message").removeClass("hide-div");
 
       setTimeout(() => {
         $(".completion-message").addClass("hide-div");
         $(".empty-cart").removeClass("hide-div");
+        $(".place-order").text("Order Now");
       }, 4500);
     }
 
-    if(showModal){
+    if (showModal) {
       $("#" + modalToShow).modal("show");
     }
   });
@@ -333,6 +355,7 @@ function validateUserInput(fieldsToValidate, alertDivClass) {
   var validated = true,
     field = "";
   $(".validate").removeClass("validate");
+  $(".validate-form-check").remove();
 
   $.each(fieldsToValidate, function (keys, values) {
     if (keys === "inputs") {
@@ -343,30 +366,21 @@ function validateUserInput(fieldsToValidate, alertDivClass) {
           $("." + field).addClass("validate");
         }
       });
-    } else if (keys === "options") {
+    } else if (keys === "checkboxes") {
       values.forEach(function (value) {
         field = value;
         if ($("." + field).is(":checked") === false) {
           validated = false;
-          $("." + field).addClass("validate");
+          $("." + field+"-header").append('<span class="validate-form-check">*</span>')
+          // $("." + field).addClass("validate");
         }
       });
     }
-    // else if(keys === "checkboxes"){
-    //   // $("." + field).forEach(function () {
-    //     //   console.log("nje");
-    //     //   if ($(this).prop("checked") !== true) {
-    //     //     console.log("inside");
-    //     //     validated = false;
-
-    //     //   }
-    //     // });
-    // }
-
-    if (!validated) {
-      alertUser("Fill the missing fields!", alertDivClass);
-    }
   });
+
+  if (!validated) {
+    alertUser("Fill the missing fields!", alertDivClass);
+  }
 
   return validated;
 }
@@ -383,4 +397,28 @@ function alertUser(message, alertDivClass) {
       .removeClass("alert-danger")
       .addClass("hide-alert");
   }, 2500);
+}
+
+function resetFieldValues(formInputFields) {
+  $.each(formInputFields, function (keys, values) {
+    if (keys === "inputs") {
+      values.forEach(function (value) {
+        $("." + value).val("");
+      });
+    } else if (keys === "checkboxes") {
+      values.forEach(function (value) {
+        $("." + value).prop("checked", false);
+      });
+    }
+  });
+}
+
+function closeModal(modalId) {
+  $("#" + modalId)
+    .delay(1000)
+    .fadeOut(450);
+
+  setTimeout(() => {
+    $("#" + modalId).modal("toggle");
+  }, 1500);
 }

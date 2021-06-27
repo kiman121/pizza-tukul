@@ -101,6 +101,6 @@ span.price-tag{
 .validate {
   border-color: red !important;
 }
-/* button + button {
-  margin-left: 0.5em;
-} */
+.validate-form-check{
+  color:red;
+}
