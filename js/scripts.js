@@ -63,8 +63,8 @@ $(document).ready(function () {
       $(".empty-cart").addClass("hide-div");
       $(".place-order").text("Add order");
 
-      closeModal('fill-order');
-      
+      closeModal("fill-order");
+
       resetFieldValues(fieldsToValidate);
 
       orderId++;
@@ -125,8 +125,8 @@ $(document).ready(function () {
       );
       $(".check-out-alerts").removeClass("hide-alert");
 
-      closeModal('delivery-details');
-      
+      closeModal("delivery-details");
+
       resetFieldValues(fieldsToValidate);
     }
   });
@@ -149,10 +149,10 @@ $(document).ready(function () {
         .html("Your order has been received. We are glad serving you.");
       $(".completion-message").removeClass("hide-div");
 
+      $(".order-items ul").empty();
+      newFinalOrder.reset();
       setTimeout(() => {
-        $(".completion-message").addClass("hide-div");
-        $(".empty-cart").removeClass("hide-div");
-        $(".place-order").text("Order Now");
+        resetPage();
       }, 4500);
     }
 
@@ -205,8 +205,12 @@ $(document).ready(function () {
     var subTotalAmount = newFinalOrder.total();
 
     setOrderTotals(parseFloat(subTotalAmount), parseFloat(deliveryFee));
-
     $(this).parents(".order-item").remove();
+
+    if (newFinalOrder.orders.length === 0) {
+      newFinalOrder.reset();
+      resetPage();
+    }
   });
 });
 
@@ -234,7 +238,13 @@ FinalOrder.prototype.total = function () {
   });
   return total;
 };
-
+FinalOrder.prototype.reset = function () {
+  this.orders = [];
+  this.clientName = "";
+  this.deliveryMode = "";
+  this.deliveryCost = 0;
+  this.deliveryAddress = [];
+};
 function OrderDetails(orderId, pizzaSize, pizzaCrust, pizzaToppings) {
   this.orderId = orderId;
   this.pizzaSize = pizzaSize;
@@ -371,8 +381,9 @@ function validateUserInput(fieldsToValidate, alertDivClass) {
         field = value;
         if ($("." + field).is(":checked") === false) {
           validated = false;
-          $("." + field+"-header").append('<span class="validate-form-check">*</span>')
-          // $("." + field).addClass("validate");
+          $("." + field + "-header").append(
+            '<span class="validate-form-check">*</span>'
+          );
         }
       });
     }
@@ -421,4 +432,19 @@ function closeModal(modalId) {
   setTimeout(() => {
     $("#" + modalId).modal("toggle");
   }, 1500);
+}
+
+function resetPage() {
+  $(".check-out-alerts").empty();
+  $(".check-out-alerts").addClass("hide-alert");
+  $(".order-items ul").empty();
+  $(".order-totals").empty();
+  $(".order-summary").addClass("hide-div");
+  $(".empty-cart").removeClass("hide-div");
+  $(".place-order").text("Order Now");
+  $("#check-out-btn").text("Check Out");
+  $("#check-out-btn").data("btnaction", "delivery-options");
+  $(".completion-message").addClass("hide-div");
+  $(".delivery-details").removeClass("hide-div").addClass("hide-div");
+  $(".delivery-form-action").val("collection");
 }
