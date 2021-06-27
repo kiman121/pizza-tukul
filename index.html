@@ -57,6 +57,10 @@
         </div>
         <div class="col-md-6 order-details">
           <h5>Order Summary</h5>
+          <div
+            class="alert hide-alert alert-success check-out-alerts"
+            role="alert"
+          ></div>
           <div class="empty-cart">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +81,11 @@
               <ul></ul>
             </div>
             <div class="order-totals"></div>
-            <a data-btnaction="delivery-options" href="#" class="btn btn-submit"
+            <a
+              id="check-out-btn"
+              data-btnaction="delivery-options"
+              href="#"
+              class="btn btn-submit"
               >Check Out</a
             >
           </div>

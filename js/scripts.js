@@ -46,7 +46,7 @@ $(document).ready(function () {
     var deliveryFee = newFinalOrder.deliveryCost;
     var subTotalAmount = newFinalOrder.total();
 
-    setOrderTotals(subTotalAmount, deliveryFee);
+    setOrderTotals(parseFloat(subTotalAmount), parseFloat(deliveryFee));
 
     $(".order-summary").removeClass("hide-div");
     $(".empty-cart").addClass("hide-div");
@@ -55,34 +55,59 @@ $(document).ready(function () {
   });
 
   $("form#delivery-detail").submit(function (event) {
-    console.log("ghjhgdsajgkjsdhk");
     event.preventDefault();
 
     var formAction = $(".delivery-form-action").val(),
       phoneNumber = $(".phone-number").val(),
       deliveryMode = $(".delivery-options:checked").val(),
-      deliveryRegion = $(".delivery-region").val(),
-      deliveryLocation = $(".delivery-location").val();
-    deliveryCost = 0;
+      deliveryCost = 0,
+      deliverytext = "";
 
     if (formAction === "collection") {
       fieldsToValidate = {
         inputs: ["phone-number"],
         options: ["delivery-options"],
       };
-
-      if (validateUserInput(fieldsToValidate, "delivery-details-form-alerts")) {
-        console.log("code some more!");
-      }
+      deliverytext = "be ready for collection in 30 minutes.";
     } else if (formAction === "delivery") {
+      var deliveryRegion = $(".delivery-region").val(),
+        deliveryRegionText = $(".delivery-region")
+          .children("option:selected")
+          .text(),
+        deliveryLocation = $(".delivery-location").val();
+
+      deliverytext =
+        "be delivered at " +
+        deliveryRegionText +
+        ", " +
+        deliveryLocation +
+        " in 30 to 40 minutes.";
       deliveryCost = $(".delivery-region").children("option:selected").val();
       fieldsToValidate = {
         inputs: ["phone-number", "delivery-region", "delivery-location"],
         options: ["delivery-options"],
       };
-      if (validateUserInput(fieldsToValidate, "delivery-details-form-alerts")) {
-        console.log("code some more again!");
-      }
+      newAddress = new Address(deliveryRegion, deliveryLocation);
+      newFinalOrder.deliveryAddress.push(newAddress);
+    }
+
+    if (validateUserInput(fieldsToValidate, "delivery-details-form-alerts")) {
+      newFinalOrder.clientPhoneNumber = phoneNumber;
+      newFinalOrder.deliveryMode = deliveryMode;
+      newFinalOrder.deliveryCost = deliveryCost;
+
+      var deliveryFee = newFinalOrder.deliveryCost;
+      var subTotalAmount = newFinalOrder.total();
+
+      setOrderTotals(parseFloat(subTotalAmount), parseFloat(deliveryFee));
+
+      $("#check-out-btn").text("Confirm order");
+      $(".check-out-alerts").text(
+        phoneNumber + ", we have received your order and will " + deliverytext
+      );
+      $(".check-out-alerts").removeClass("hide-alert");
+      console.log(subTotalAmount, deliveryFee);
+      console.log(newFinalOrder);
     }
   });
 
@@ -194,6 +219,11 @@ Order.prototype.total = function () {
   return total;
 };
 
+function Address(region, location) {
+  this.region = region;
+  this.location = location;
+}
+
 function validateUserInput(formInputFields, alertDivClass) {
   var validated = true;
   $(".validate").removeClass("validate");
@@ -245,6 +275,7 @@ function formatCurrency(amount) {
 
 function setOrderTotals(subTotalAmount, deliveryFee) {
   var vatPayable = Math.round(0.16 * (subTotalAmount + deliveryFee));
+  console.log(subTotalAmount, deliveryFee, vatPayable);
   var totalOrderAmount = subTotalAmount + deliveryFee + vatPayable;
 
   $(".order-totals")
@@ -278,19 +309,19 @@ function validateUserInput(fieldsToValidate, alertDivClass) {
     } else if (keys === "options") {
       values.forEach(function (value) {
         field = value;
-        if($("." + field).is(":checked")=== false){
+        if ($("." + field).is(":checked") === false) {
           validated = false;
           $("." + field).addClass("validate");
-        }        
+        }
       });
-    } 
+    }
     // else if(keys === "checkboxes"){
     //   // $("." + field).forEach(function () {
     //     //   console.log("nje");
     //     //   if ($(this).prop("checked") !== true) {
     //     //     console.log("inside");
     //     //     validated = false;
-            
+
     //     //   }
     //     // });
     // }
