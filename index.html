@@ -47,8 +47,10 @@
           <h1>For the love of pizza</h1>
           <div class="row">
             <div class="col-md-6">
-              <p>It's only pizza if tukul made!</p>
-              <a data-btnaction="place-order" href="#" class="btn btn-submit">Order Now</a>
+              <p>It's pizza if tukul made!</p>
+              <a data-btnaction="place-order" href="#" class="btn btn-submit"
+                >Order Now</a
+              >
             </div>
             <div class="col-md-6"><img src="images/chef.jpeg" alt="" /></div>
           </div>
@@ -74,23 +76,10 @@
             <div class="order-items">
               <ul></ul>
             </div>
-            <div class="order-totals">
-              <ul>
-                <li class="summary-item">
-                  Subtotal <span class="price-tag subtotal"></span>
-                </li>
-                <li class="summary-item">
-                  Delivery fee <span class="price-tag delivery-fee"></span>
-                </li>
-                <li class="summary-item">
-                  VAT 16% <span class="price-tag vat-payable"></span>
-                </li>
-                <li class="summary-total">
-                  Total <span class="price-tag total-order-amount"></span>
-                </li>
-              </ul>
-            </div>
-            <a data-btnaction="delivery-options" href="#" class="btn btn-submit">Check Out</a>
+            <div class="order-totals"></div>
+            <a data-btnaction="delivery-options" href="#" class="btn btn-submit"
+              >Check Out</a
+            >
           </div>
         </div>
       </div>
@@ -280,36 +269,45 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+
           <div class="modal-body">
-            <form action="" id="delivery-details">
+            <form action="" id="delivery-detail">
               <div class="delivery-option">
                 <h6>Choose delivery option</h6>
+                <div
+                  class="alert hide-alert delivery-details-form-alerts"
+                  role="alert"
+                ></div>
                 <div class="form-check">
                   <input
-                    class="form-check-input select-delivery-option delivery-options"
+                    class="form-check-input delivery-options"
                     type="radio"
                     name="selectDeliveryOption"
                     id="selectDeliveryOption1"
                     value="collect"
                   />
                   <label class="form-check-label" for="selectDeliveryOption1">
-                    Collect </label
-                  >
+                    Collect
+                  </label>
                 </div>
                 <div class="form-check">
                   <input
-                    class="form-check-input select-delivery-option delivery-options"
+                    class="form-check-input delivery-options"
                     type="radio"
                     name="selectDeliveryOption"
                     id="selectDeliveryOption2"
                     value="deliver"
                   />
                   <label class="form-check-label" for="selectDeliveryOption2">
-                    Deliver </label
-                  >
+                    Deliver
+                  </label>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Phone number...">
+                  <input
+                    type="text"
+                    class="form-control phone-number"
+                    placeholder="Phone number..."
+                  />
                 </div>
               </div>
               <div class="delivery-details hide-div">
@@ -317,25 +315,53 @@
                 <div class="form-group">
                   <select class="form-control delivery-region" name="" id="">
                     <option value="">Select region</option>
-                    <option value="50">Central<i class="price-tag">50ksh</i></option>
-                    <option value="200">Dagoreti<span class="price-tag">200ksh</span></option>
-                    <option value="250">Embakasi<span class="price-tag">250ksh</span></option>
-                    <option value="200">Kasarani<span class="price-tag">200ksh</span></option>
-                    <option value="150">Kibera<span class="price-tag">150ksh</span></option>
-                    <option value="200">Makadara<span class="price-tag">200ksh</span></option>
-                    <option value="200">Pumwani<span class="price-tag">200ksh</span></option>
-                    <option value="220">Westlands<span class="price-tag">220ksh</span></option>
+                    <option value="50">
+                      Central<i class="price-tag">50ksh</i>
+                    </option>
+                    <option value="200">
+                      Dagoreti<span class="price-tag">200ksh</span>
+                    </option>
+                    <option value="250">
+                      Embakasi<span class="price-tag">250ksh</span>
+                    </option>
+                    <option value="200">
+                      Kasarani<span class="price-tag">200ksh</span>
+                    </option>
+                    <option value="150">
+                      Kibera<span class="price-tag">150ksh</span>
+                    </option>
+                    <option value="200">
+                      Makadara<span class="price-tag">200ksh</span>
+                    </option>
+                    <option value="200">
+                      Pumwani<span class="price-tag">200ksh</span>
+                    </option>
+                    <option value="220">
+                      Westlands<span class="price-tag">220ksh</span>
+                    </option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control delivery-location" placeholder="Location...">
+                  <input
+                    type="text"
+                    class="form-control delivery-location"
+                    placeholder="Location..."
+                  />
                 </div>
               </div>
-              <input type="hidden" action="collection" class="delivery-form-action">
+              <input
+                type="hidden"
+                value="collection"
+                class="delivery-form-action"
+              />
             </form>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" form="delivery-details">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              form="delivery-detail"
+            >
               Add delivery option
             </button>
           </div>

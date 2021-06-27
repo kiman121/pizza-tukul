@@ -1,7 +1,8 @@
 $(document).ready(function () {
   const newOrder = new Order(),
     newFinalOrder = new FinalOrder();
-  var orderId = 1, fieldsToValidate = [];
+  var orderId = 1,
+    fieldsToValidate = [];
 
   $("form#place-order").submit(function (event) {
     event.preventDefault();
@@ -42,15 +43,10 @@ $(document).ready(function () {
         " ksh</span> </li>"
     );
 
-    var deliveryFee = 0;
+    var deliveryFee = newFinalOrder.deliveryCost;
     var subTotalAmount = newFinalOrder.total();
-    var vatPayable = Math.round(0.16 * (subTotalAmount + deliveryFee));
-    var totalOrderAmount = subTotalAmount + deliveryFee + vatPayable;
 
-    $(".subtotal").text(formatCurrency(subTotalAmount) + " ksh");
-    $(".delivery-fee").text(formatCurrency(deliveryFee) + " ksh");
-    $(".vat-payable").text(formatCurrency(vatPayable) + " ksh");
-    $(".total-order-amount").text(formatCurrency(totalOrderAmount) + " ksh");
+    setOrderTotals(subTotalAmount, deliveryFee);
 
     $(".order-summary").removeClass("hide-div");
     $(".empty-cart").addClass("hide-div");
@@ -58,12 +54,35 @@ $(document).ready(function () {
     orderId++;
   });
 
-  $("form#delivery-details").submit(function(event){
+  $("form#delivery-detail").submit(function (event) {
+    console.log("ghjhgdsajgkjsdhk");
     event.preventDefault();
-    var formAction = $(".delivery-form-action").val();
 
-    if(formAction === "collection"){
-      
+    var formAction = $(".delivery-form-action").val(),
+      phoneNumber = $(".phone-number").val(),
+      deliveryMode = $(".delivery-options:checked").val(),
+      deliveryRegion = $(".delivery-region").val(),
+      deliveryLocation = $(".delivery-location").val();
+    deliveryCost = 0;
+
+    if (formAction === "collection") {
+      fieldsToValidate = {
+        inputs: ["phone-number"],
+        options: ["delivery-options"],
+      };
+
+      if (validateUserInput(fieldsToValidate, "delivery-details-form-alerts")) {
+        console.log("code some more!");
+      }
+    } else if (formAction === "delivery") {
+      deliveryCost = $(".delivery-region").children("option:selected").val();
+      fieldsToValidate = {
+        inputs: ["phone-number", "delivery-region", "delivery-location"],
+        options: ["delivery-options"],
+      };
+      if (validateUserInput(fieldsToValidate, "delivery-details-form-alerts")) {
+        console.log("code some more again!");
+      }
     }
   });
 
@@ -77,7 +96,6 @@ $(document).ready(function () {
     } else if (btnAction === "delivery-options") {
       modalToShow = "delivery-details";
     }
-
     $("#" + modalToShow).modal("show");
   });
 
@@ -96,20 +114,24 @@ $(document).ready(function () {
     $(".modal-subtotal").text(formatCurrency(newOrder.total()));
   });
 
-  $(".delivery-options").click(function(){
+  $(".delivery-options").click(function () {
     var value = $(this).val();
-    if(value === "collect"){
+    if (value === "collect") {
       $(".delivery-details").removeClass("hide-div").addClass("hide-div");
       $(".delivery-form-action").val("collection");
-    } else if(value === "deliver"){
+    } else if (value === "deliver") {
       $(".delivery-details").removeClass("hide-div");
-      $(".delivery-form-action").val("deliver");
+      $(".delivery-form-action").val("delivery");
     }
   });
 });
 
 function FinalOrder() {
   this.orders = [];
+  this.clientPhoneNumber = "";
+  this.deliveryMode = "";
+  this.deliveryCost = 0;
+  this.deliveryAddress = [];
 }
 
 FinalOrder.prototype.total = function () {
@@ -122,7 +144,6 @@ FinalOrder.prototype.total = function () {
     crustCost = parseFloat(order.pizzaCrust.crustCost);
     var topingCost = 0;
     order.pizzaToppings.forEach(function (pizzaTopping) {
-      console.log(pizzaTopping);
       topingCost = topingCost + parseFloat(pizzaTopping);
     });
     total = total + sizeCost + crustCost + topingCost;
@@ -214,9 +235,84 @@ function resetFieldValues(formInputFields) {
     $("." + formInputField).val("");
   });
 }
+
 function formatCurrency(amount) {
   return parseFloat(amount, 10)
     .toFixed(2)
     .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
     .toString();
+}
+
+function setOrderTotals(subTotalAmount, deliveryFee) {
+  var vatPayable = Math.round(0.16 * (subTotalAmount + deliveryFee));
+  var totalOrderAmount = subTotalAmount + deliveryFee + vatPayable;
+
+  $(".order-totals")
+    .empty()
+    .html(
+      '<ul> <li class="summary-item"> Subtotal <span class="price-tag subtotal">' +
+        formatCurrency(subTotalAmount) +
+        ' ksh</span> </li> <li class="summary-item"> Delivery fee <span class="price-tag delivery-fee">' +
+        formatCurrency(deliveryFee) +
+        ' ksh</span> </li> <li class="summary-item"> VAT 16% <span class="price-tag vat-payable">' +
+        formatCurrency(vatPayable) +
+        ' ksh</span> </li> <li class="summary-total"> Total <span class="price-tag total-order-amount">' +
+        formatCurrency(totalOrderAmount) +
+        " ksh</span> </li> </ul>"
+    );
+}
+function validateUserInput(fieldsToValidate, alertDivClass) {
+  var validated = true,
+    field = "";
+  $(".validate").removeClass("validate");
+
+  $.each(fieldsToValidate, function (keys, values) {
+    if (keys === "inputs") {
+      values.forEach(function (value) {
+        field = value;
+        if ($("." + field).val() === "") {
+          validated = false;
+          $("." + field).addClass("validate");
+        }
+      });
+    } else if (keys === "options") {
+      values.forEach(function (value) {
+        field = value;
+        if($("." + field).is(":checked")=== false){
+          validated = false;
+          $("." + field).addClass("validate");
+        }        
+      });
+    } 
+    // else if(keys === "checkboxes"){
+    //   // $("." + field).forEach(function () {
+    //     //   console.log("nje");
+    //     //   if ($(this).prop("checked") !== true) {
+    //     //     console.log("inside");
+    //     //     validated = false;
+            
+    //     //   }
+    //     // });
+    // }
+
+    if (!validated) {
+      alertUser("Fill the missing fields!", alertDivClass);
+    }
+  });
+
+  return validated;
+}
+
+function alertUser(message, alertDivClass) {
+  $("." + alertDivClass).html(message);
+  $("." + alertDivClass)
+    .removeClass("hide-alert")
+    .addClass("alert-danger");
+
+  setTimeout(() => {
+    $("." + alertDivClass).empty();
+    $("." + alertDivClass)
+      .removeClass("alert-danger")
+      .addClass("hide-alert");
+  }, 2500);
 }
