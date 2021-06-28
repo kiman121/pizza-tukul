@@ -29,7 +29,6 @@ h1 {
 }
 .main-content {
   padding: 1em;
-  border: 1px solid red;
 }
 .button-group {
   display: block;
@@ -107,6 +106,13 @@ h1 {
 }
 .delivery-region option:after {
   background-color: red;
+}
+.page-footer{
+  background: #56776C;
+  color: #fff;
+  margin-bottom: 0;
+  padding: 1em;
+  
 }
 span.price-tag {
   float: right;
