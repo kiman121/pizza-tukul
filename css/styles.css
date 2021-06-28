@@ -3,7 +3,6 @@
 *::after {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
@@ -12,7 +11,6 @@ body {
 h1 {
   font-size: 3rem;
 }
-
 .header p {
   font-size: 0.75em;
   font-style: italic;
@@ -33,65 +31,85 @@ h1 {
   padding: 1em;
   border: 1px solid red;
 }
-/* .order-choices {
-  border-right: 2px solid #23424a;
-} */
 .button-group {
   display: block;
   text-align: right;
 }
-.btn-submit{
+.btn-submit {
   background-color: #23424a;
-  color: #fff;
-  width: 40%;
   border: 1px solid #23424a;
-  padding: 0.25em 0;
+  color: #fff;
+  width: 100%;
+  padding: 0.25em;
   border-radius: 4px;
 }
-.btn-submit:hover{
+.btn-submit:hover {
   opacity: 0.75;
   color: #fff;
 }
 .intro {
   padding: 0.75em;
-  border: 1px solid green;
 }
-
 .intro h1 {
   font-size: 3em;
   font-style: bold;
   font-weight: 900;
 }
-
 .intro p {
   font-style: italic;
 }
-
 .intro img {
   width: 100%;
   height: auto;
 }
-.order-details{
-    padding: 1em;
-    border: 1px solid yellow;
+.order-details {
+  padding: 1em;
+  display: block;
+  text-align: center;
+  background: #e8f0f2;
 }
-.order-details ul{
-    list-style-type: none;
+.order-details__wrapper {
+  border: 1px solid rgba(35, 66, 74, 0.45);
+  padding: 1em;
+  border-radius: 3px;
 }
-.empty-cart{
-    display: block;
-    text-align: center;
+.order-details ul {
+  list-style-type: none;
+  text-align: left;
+  padding: 0;
 }
-.empty-cart img{
-    width: 50%;
-    height: auto;
-    color: #fff;
+.order-details ul a {
+  text-decoration: none;
+  color: #000;
 }
-.delivery-region option:after{
+.order-details ul a:hover {
+  color: red;
+}
+.order-totals {
+  padding: 0.75em 0;
+  border-top: 1px solid;
+}
+.order-summary {
+  padding: 1em;
+}
+.completion-message {
+  padding: 5em 0;
+}
+.empty-cart {
+  padding: 5em 0;
+  display: block;
+  text-align: center;
+  background: #a2dbfa;
+  border-radius: 3px;
+}
+.empty-cart p {
+  padding-top: 0.75em;
+}
+.delivery-region option:after {
   background-color: red;
 }
-span.price-tag{
-    float: right;
+span.price-tag {
+  float: right;
 }
 .hide-div,
 .hide-alert,
@@ -101,6 +119,6 @@ span.price-tag{
 .validate {
   border-color: red !important;
 }
-.validate-form-check{
-  color:red;
+.validate-form-check {
+  color: red;
 }

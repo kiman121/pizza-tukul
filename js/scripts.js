@@ -144,10 +144,11 @@ $(document).ready(function () {
     } else if (btnAction === "order-checkout") {
       showModal = false;
       $(".order-summary").addClass("hide-div");
-      $(".completion-message")
+      $(".completion-message-alerts")
         .empty()
         .html("Your order has been received. We are glad serving you.");
       $(".completion-message").removeClass("hide-div");
+      $(".completion-message-alerts").removeClass("hide-alert");
 
       $(".order-items ul").empty();
       newFinalOrder.reset();
@@ -302,8 +303,6 @@ function validateUserInput(formInputFields, alertDivClass) {
       thisField = $("." + field),
       value = thisField.val();
 
-    console.log(thisField.prop("type"));
-
     if (value === "") {
       validated = false;
       thisField.addClass("validate");
@@ -445,6 +444,7 @@ function resetPage() {
   $("#check-out-btn").text("Check Out");
   $("#check-out-btn").data("btnaction", "delivery-options");
   $(".completion-message").addClass("hide-div");
+  $(".completion-message-alerts").addClass("hide-alert");
   $(".delivery-details").removeClass("hide-div").addClass("hide-div");
   $(".delivery-form-action").val("collection");
 }

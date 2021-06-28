@@ -59,41 +59,47 @@
           </div>
         </div>
         <div class="col-md-6 order-details">
-          <h5>Order Summary</h5>
-
-          <div class="empty-cart">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="10%"
-              height="20%"
-              fill="currentColor"
-              class="bi bi-cart"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-              />
-            </svg>
-            <p>Your cart is empty. Start adding you tukul order.</p>
-          </div>
-          <div class="order-summary hide-div">
-            <div
-              class="alert hide-alert alert-success check-out-alerts"
-              role="alert"
-            ></div>
-            <div class="order-items">
-              <ul></ul>
+          <div class="order-details__wrapper">
+            <h5>Order Summary</h5>
+            <div class="empty-cart">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10%"
+                height="20%"
+                fill="currentColor"
+                class="bi bi-cart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+                />
+              </svg>
+              <p>Your cart is empty. Order now to fill you tukul order.</p>
             </div>
-            <div class="order-totals"></div>
-            <a
-              id="check-out-btn"
-              data-btnaction="delivery-options"
-              href="#"
-              class="btn btn-submit"
-              >Check Out</a
-            >
+            <div class="order-summary hide-div">
+              <div
+                class="alert hide-alert alert-success check-out-alerts"
+                role="alert"
+              ></div>
+              <div class="order-items">
+                <ul></ul>
+              </div>
+              <div class="order-totals"></div>
+              <a
+                id="check-out-btn"
+                data-btnaction="delivery-options"
+                href="#"
+                class="btn btn-submit"
+                >Check Out</a
+              >
+            </div>
+            <div class="completion-message hide-div">
+              <div
+                class="alert hide-alert alert-success completion-message-alerts"
+                role="alert"
+              ></div>
+            </div>
           </div>
-          <div class="completion-message hide-div"></div>
         </div>
       </div>
     </section>
@@ -109,7 +115,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Fill Your Order</h5>
             <button
               type="button"
               class="close"
@@ -165,7 +171,9 @@
                 </div>
               </div>
               <div class="pizza-crust">
-                <h6 class="pizza-crust-option-header">Choose preferred crust</h6>
+                <h6 class="pizza-crust-option-header">
+                  Choose preferred crust
+                </h6>
                 <div class="form-check">
                   <input
                     class="form-check-input pizza-crust-option pizza-options"
@@ -204,7 +212,9 @@
                 </div>
               </div>
               <div class="pizza-toppings">
-                <h6 class="pizza-toppings-option-header">Choose desired topings</h6>
+                <h6 class="pizza-toppings-option-header">
+                  Choose desired topings
+                </h6>
                 <div class="form-check">
                   <label class="form-check-label">
                     <input
@@ -294,7 +304,7 @@
                   class="alert hide-alert delivery-details-form-alerts"
                   role="alert"
                 ></div>
-                <h6>Choose delivery option</h6>
+                <h6 class="delivery-options-header">Choose delivery option</h6>
                 <div class="form-check">
                   <input
                     class="form-check-input delivery-options"
